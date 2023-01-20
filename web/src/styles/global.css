@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind utilities;
+@tailwind components;
+
+.overflow-overlay {
+    overflow: auto;
+    overflow: overlay;
+}
+.overflow-x-overlay {
+    overflow-x: auto;
+    overflow-x: overlay;
+}
+.overflow-y-overlay {
+    overflow-y: auto;
+    overflow-y: overlay;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}

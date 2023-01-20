@@ -1,0 +1,64 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Habit {
+  // preenche o id com um uuid, id único universal, aleatório
+  id         String   @id @default(uuid())
+  title      String
+  created_at DateTime
+
+  // relacionamento inverso do DayHabbit, não colocamos como _ como nos outros campos pois não é um campo da tabela, é apenas para o prisma interpretar no js
+  dayHabits DayHabit[]
+  weekDays  HabitWeekDays[]
+
+  // no banco de dados vai alterar o nome da tabela de Habit para habits, um melhor padrão para dbs
+  @@map("habits")
+}
+
+model HabitWeekDays {
+  id       String @id @default(uuid())
+  habit_id String
+  week_day Int
+  // 0 = domingo, etc
+
+  habit Habit @relation(fields: [habit_id], references: [id])
+
+  // o mesmo hábito só pode estar disponivel 1 vez no dia da semana
+  @@unique([habit_id, week_day])
+  @@map("habit_week_days")
+}
+
+model Day {
+  id   String   @id @default(uuid())
+  date DateTime
+
+  // relacionamento inverso do DayHabbit, não colocamos como _ como nos outros campos pois não é um campo da tabela, é apenas para o prisma interpretar no js
+  dayHabits DayHabit[]
+
+  // diz que só pode ter uma mesma data na tabela toda, não repete
+  @@unique([date])
+  @@map("days")
+}
+
+// relacionamento n pra n, tabela pivot
+model DayHabit {
+  id String @id @default(uuid())
+
+  day_id   String
+  habit_id String
+
+  day   Day   @relation(fields: [day_id], references: [id]) // model day
+  habit Habit @relation(fields: [habit_id], references: [id]) // model habit
+
+  @@unique([day_id, habit_id])
+  @@map("day_habits")
+}
