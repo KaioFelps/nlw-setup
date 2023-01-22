@@ -4,10 +4,6 @@ import * as Dialog from "@radix-ui/react-dialog"
 import { NewHabitForm } from "./NewHabitForm";
 
 export function Header() {
-    function handleButtonClick() {
-        console.log("oi")
-    }
-
     return (
         <header className="w-full max-w-3xl mx-auto flex items-center justify-between">
             <img src={logoImage} alt="Habits" />
@@ -16,13 +12,12 @@ export function Header() {
                 <Dialog.Trigger
                     type="button"
                     className="
-                    py-4 px-6 flex flex-row gap-3 items-center rounded-lg border-solid border border-violet-500 text-white text-base
-                    hover:border-violet-300 hover:bg-zinc-900 transition-all
+                    group py-4 px-6 flex flex-row gap-3 items-center rounded-lg border-solid border border-violet-500 text-white text-base
+                    hover:border-violet-300 hover:bg-violet-500/20 transition-all
                     active:brightness-80
                     focus:border-transparent focus:outline-4 focus:outline-violet-500/50 focus:outline focus:delay-75 bg-violet-500/10"
-                    onClick={handleButtonClick}
                 >
-                <Plus size= {20} className="text-violet-500" /> Novo hábito
+                <Plus size= {20} className="text-violet-500 group-hover:text-violet-300" /> Novo hábito
                 </Dialog.Trigger>
                 
                 <Dialog.Portal>
