@@ -36,7 +36,7 @@ export function Header() {
                                 className="p-1 rounded-lg text-zinc-400 bg-zinc-900
                                 hover:bg-zinc-800 hover:text-zinc-200
                                 active:brightness-110
-                                focus:outline focus:outline-4 focus:outline-violet-500/50"
+                                focus:outline focus:outline-4 focus:outline-violet-500/50 focus:transition-all focus:delay-75 focus:bg-zinc-800"
                             >
                                 <X size={24} aria-label="fechar diálogo" />
                             </Dialog.Close>

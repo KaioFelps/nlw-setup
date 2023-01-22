@@ -32,8 +32,8 @@ export function SummaryTable() {
                     return <SummaryWeekDay key={index}>{day}</SummaryWeekDay>
                 })}
             </header>
-            <section className="grid grid-rows-7 grid-flow-col gap-2 overflow-x-overlay scrollbar-hide">
-                {summaryDates.map(date => {
+            <section className="grid grid-rows-7 grid-flow-col gap-2 overflow-x-overlay scrollbar-hide box-content p-1">
+                {summaryData.length > 0 ? summaryDates.map(date => {
                     const dayInSummary = summaryData.find(day => {
                         return dayjs(date).isSame(day.date, "day")
                     })
@@ -42,9 +42,9 @@ export function SummaryTable() {
                                 key={date.toString()}
                                 date={date}
                                 availableHabitsLength={dayInSummary?.availableHabitsLength}
-                                completedHabitsLength={dayInSummary?.completedHabitsLength}
+                                defaultCompletedLength={dayInSummary?.completedHabitsLength}
                             />
-                })}
+                }) : null}
 
                 {daysToFill > 0 ? Array.from({length: daysToFill}).map((_, i) => {
                     return <HabitSpan key={i} isFake />

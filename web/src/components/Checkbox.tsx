@@ -3,19 +3,21 @@ import * as CheckboxPrimitive from "@radix-ui/react-checkbox"
 import { Check } from "phosphor-react";
 import colors from "tailwindcss/colors";
 
-type CheckboxProps = {
+type CheckboxProps = CheckboxPrimitive.CheckboxProps & {
     children: ReactNode;
+    isChecked?: boolean;
 }
 
-export function Checkbox({ children }: CheckboxProps) {
+export function Checkbox({ children, isChecked, ...rest }: CheckboxProps) {
     return (
         <CheckboxPrimitive.Root
-            className="group flex flex-row items-center gap-3"
+            className="group flex flex-row items-center gap-3 focus:outline-none"
+            {...rest}
         >
             <div
                 className="
-                h-8 w-8 rounded-lg flex items-center justify-center bg-zinc-900 border-2 border-zinc-800
-                group-data-[state=checked]:bg-green-500 group-data-[state=checked]:border-green-500
+                h-8 w-8 rounded-lg flex items-center justify-center bg-zinc-900 border-2 border-zinc-800 transition-all delay-75
+                group-data-[state=checked]:bg-green-500 group-data-[state=checked]:border-green-500 group-focus:outline-4 group-focus:outline outline-green-500/25 group-disabled:cursor-not-allowed
                 "
             >
                 <CheckboxPrimitive.Indicator>

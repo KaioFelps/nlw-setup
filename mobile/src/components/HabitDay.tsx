@@ -16,10 +16,6 @@ type HabitDayProps = TouchableOpacityProps & {
 }
 
 export function HabitDay({isFake, date, completedHabitsLength = 0, availableHabitsLength = 0, ...rest}: HabitDayProps) {
-    const completedPercentage = completedHabitsLength === 0 ? 0 : generateProgressPercentage(availableHabitsLength, completedHabitsLength)
-    const today = dayjs().startOf("day").toDate()
-    const isCurrentDay = dayjs(date).isSame(today)
-
     if(isFake) return (
         <View
             className="bg-zinc-900 rounded-lg border m-1 border-zinc-800 opacity-50"
@@ -27,18 +23,22 @@ export function HabitDay({isFake, date, completedHabitsLength = 0, availableHabi
          />
     )
 
+    const completedPercentage = completedHabitsLength === 0 ? 0 : generateProgressPercentage(availableHabitsLength, completedHabitsLength)
+    const today = dayjs().startOf("day").toDate()
+    const isCurrentDay = dayjs(date).isSame(today)
+
     return (
         <TouchableOpacity
             activeOpacity={0.7}
             style={{width: HABIT_DAY_SIZE, height: HABIT_DAY_SIZE}}
             className={clsx("rounded-lg border-2 m-1", {
-                "bg-zinc-900 border-zinc-800": completedHabitsLength === 0,
-                "bg-violet-900 border-violet-700": completedHabitsLength > 0 && completedHabitsLength < 20,
-                "bg-violet-800 border-violet-600": completedHabitsLength > 20 && completedHabitsLength < 40,
-                "bg-violet-700 border-violet-500": completedHabitsLength > 40 && completedHabitsLength < 60,
-                "bg-violet-600 border-violet-500": completedHabitsLength > 60 && completedHabitsLength < 80,
-                "bg-violet-500 border-violet-300": completedHabitsLength > 80,
-                "bg-zinc-900 border-white border-4": isCurrentDay,
+                "bg-zinc-900 border-zinc-800": completedPercentage === 0,
+                "bg-violet-900 border-violet-700": completedPercentage > 0 && completedPercentage < 20,
+                "bg-violet-800 border-violet-600": completedPercentage >= 20 && completedPercentage < 40,
+                "bg-violet-700 border-violet-500": completedPercentage >= 40 && completedPercentage < 60,
+                "bg-violet-600 border-violet-500": completedPercentage >= 60 && completedPercentage < 80,
+                "bg-violet-500 border-violet-300": completedPercentage >= 80,
+                "border-white border-4": isCurrentDay,
             })}
             {...rest}
          />

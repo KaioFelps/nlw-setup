@@ -1,9 +1,8 @@
 import { Check } from "phosphor-react";
 import { FormEvent, useState } from "react";
-import * as Checkbox from "@radix-ui/react-checkbox"
-import colors from "tailwindcss/colors";
 import useRipple from "use-ripple-hook";
 import { api } from "../lib/axios";
+import { Checkbox } from "./Checkbox";
 
 export function NewHabitForm() {
     const [ title, setTitle ] = useState("")
@@ -92,29 +91,13 @@ export function NewHabitForm() {
             <div className="mt-3 flex flex-col gap-3">
                 {weekDays.map((day, index) => {
                     return (
-                        <Checkbox.Root
+                        <Checkbox
                             key={day}
-                            className="group flex flex-row items-center gap-3 focus:outline-0"
                             onCheckedChange={() => handleToggleSelectedWeekDay(index)}
                             checked={selectedWeekDays.includes(index)}
                         >
-                            <div
-                                className="
-                                h-8 w-8 rounded-lg flex items-center justify-center bg-zinc-900 border-2 border-zinc-800
-                                group-data-[state=checked]:bg-green-500 group-data-[state=checked]:border-green-500
-                                group-focus:outline-4 group-focus:outline-green-500/25 group-focus:outline
-                                "
-                            >
-                                <Checkbox.Indicator>
-                                    <Check size={20} weight="bold" color={colors.white} />
-                                </Checkbox.Indicator>
-                            </div>
-                
-                            <span className="
-                                font-semibold text-xl text-white leading-tight">
-                                {day}
-                            </span>
-                        </Checkbox.Root>
+                            {day}
+                        </Checkbox>
                     )
                 })}
             </div>
